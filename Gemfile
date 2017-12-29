@@ -17,6 +17,9 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'rspec'
 
+gem 'paperclip'
+gem 'aws-sdk', '< 2.0'
+
 #FRONTEND
 gem 'bootstrap-sass'
 
@@ -41,7 +44,7 @@ end
 
 group :production do
   gem 'pg'
-
+  gem 'rails_12factor'
 end
 
 

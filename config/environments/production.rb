@@ -1,4 +1,7 @@
 Rails.application.configure do
+
+   config.domain = 'mountainkhakis-demo.herokuapp.com'
+  config.cdn = 'dqod6kizn9e34.cloudfront.net'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -88,4 +91,31 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Amazon S3 for paperclip
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    },
+    s3_headers:     { 'Cache-Control' => 'max-age=31557600' },
+    :s3_protocol => :https,
+    :url => ':s3_alias_url',
+    :s3_host_alias => config.cdn,
+    :path => ':class/:attachment/:id_partition/:style/:filename'
+  }
+
+  # sendgrid mail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => config.domain,
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
