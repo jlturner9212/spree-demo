@@ -1,6 +1,6 @@
 Rails.application.configure do
 
-   config.domain = 'mountainkhakis-demo.herokuapp.com'
+  config.domain = 'mountainkhakis-demo.herokuapp.com'
   config.cdn = 'dqod6kizn9e34.cloudfront.net'
   # Settings specified here will take precedence over those in config/application.rb.
 

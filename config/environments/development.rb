@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -51,4 +51,18 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.domain = 'localhost:3000'
+
+  config.action_mailer.default_url_options = { :host => 'http://' + config.domain }
+
+  config.action_mailer.asset_host = config.action_controller.asset_host = "http://" + config.domain
+
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+
+  config.paperclip_defaults = {
+    url: '/:class/:attachment/:id_partition/:style/:filename',
+    path: ':rails_root/public/:class/:attachment/:id_partition/:style/:filename',
+  }
 end
